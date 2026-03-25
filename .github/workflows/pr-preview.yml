@@ -1,0 +1,47 @@
+name: PR Preview
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: pr-preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup and build
+        if: github.event.action != 'closed'
+        run: |
+          export PR_NUMBER=${{ github.event.pull_request.number }}
+          # Update vite base path for PR preview subdirectory
+          sed -i "s|base: '/valgit/'|base: '/valgit/pr-preview/pr-${PR_NUMBER}/'|" vite.config.ts
+          # Update manifest start_url and scope for PR preview
+          sed -i "s|/valgit/|/valgit/pr-preview/pr-${PR_NUMBER}/|g" public/manifest.json
+          # Update service worker scope
+          sed -i "s|/valgit/|/valgit/pr-preview/pr-${PR_NUMBER}/|g" public/sw.js
+
+      - uses: actions/setup-node@v4
+        if: github.event.action != 'closed'
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+        if: github.event.action != 'closed'
+      - run: npm run build
+        if: github.event.action != 'closed'
+
+      - uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: ./dist
+          preview-branch: gh-pages
+          umbrella-dir: pr-preview
+          action: auto

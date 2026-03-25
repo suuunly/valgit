@@ -2,15 +2,15 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main, claude/faroe-vote-quest-clone-gLrkA]
+    branches: [main]
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
 concurrency:
-  group: pages
+  group: pages-deploy
   cancel-in-progress: true
 
 jobs:
@@ -24,11 +24,21 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+
+      # Deploy to gh-pages branch (for pr-preview compatibility)
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          keep_files: true
+          destination_dir: .
+
+      # Also deploy via GitHub Actions Pages (current setup - remove once switched to gh-pages source)
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
 
-  deploy:
+  deploy-actions:
     needs: build
     runs-on: ubuntu-latest
     environment:
