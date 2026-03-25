@@ -36,7 +36,7 @@ const partyBadgeClass: Record<PartyLetter, string> = {
 };
 
 export function PartyGroup({ party, candidates, electionId, getVote, locked, onIncrement, onDecrement, onSetVote }: PartyGroupProps) {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const partyListId = `list-${electionId}-${party.letter}`;
   const totalVotes = candidates.reduce((sum, c) => sum + getVote(c.id), 0) + getVote(partyListId);
 
