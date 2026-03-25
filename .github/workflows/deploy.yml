@@ -6,13 +6,15 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 concurrency:
   group: pages-deploy
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -22,9 +24,26 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+
+      # Deploy to gh-pages branch (for pr-preview compatibility)
       - uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
           keep_files: true
           destination_dir: .
+
+      # Also deploy via GitHub Actions Pages (current setup - remove once switched to gh-pages source)
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy-actions:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
