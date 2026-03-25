@@ -1,7 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
 @import "tailwindcss";
 
 @theme {
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+
   --color-background: hsl(210 25% 97%);
   --color-foreground: hsl(215 30% 12%);
 
@@ -27,8 +28,6 @@
   --color-input: hsl(210 18% 87%);
   --color-ring: hsl(207 65% 31%);
 
-  --radius: 0.75rem;
-
   --color-party-a: hsl(131 42% 49%);
   --color-party-b: hsl(197 82% 29%);
   --color-party-c: hsl(358 56% 42%);
@@ -36,52 +35,59 @@
   --color-party-e: hsl(194 52% 25%);
   --color-party-f: hsl(37 93% 48%);
   --color-party-h: hsl(204 100% 38%);
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
 }
 
-@layer base {
-  * {
-    border-color: var(--color-border);
-  }
-
-  body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
-    font-family: 'DM Sans', system-ui, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+* {
+  border-color: var(--color-border);
 }
 
-@layer utilities {
-  .party-badge-a { background-color: var(--color-party-a); }
-  .party-badge-b { background-color: var(--color-party-b); }
-  .party-badge-c { background-color: var(--color-party-c); }
-  .party-badge-d { background-color: var(--color-party-d); }
-  .party-badge-e { background-color: var(--color-party-e); }
-  .party-badge-f { background-color: var(--color-party-f); }
-  .party-badge-h { background-color: var(--color-party-h); }
-
-  .party-border-a { border-color: var(--color-party-a); }
-  .party-border-b { border-color: var(--color-party-b); }
-  .party-border-c { border-color: var(--color-party-c); }
-  .party-border-d { border-color: var(--color-party-d); }
-  .party-border-e { border-color: var(--color-party-e); }
-  .party-border-f { border-color: var(--color-party-f); }
-  .party-border-h { border-color: var(--color-party-h); }
-
-  .party-text-a { color: var(--color-party-a); }
-  .party-text-b { color: var(--color-party-b); }
-  .party-text-c { color: var(--color-party-c); }
-  .party-text-d { color: var(--color-party-d); }
-  .party-text-e { color: var(--color-party-e); }
-  .party-text-f { color: var(--color-party-f); }
-  .party-text-h { color: var(--color-party-h); }
-
-  .party-bg-a { background-color: color-mix(in srgb, var(--color-party-a) 8%, transparent); }
-  .party-bg-b { background-color: color-mix(in srgb, var(--color-party-b) 8%, transparent); }
-  .party-bg-c { background-color: color-mix(in srgb, var(--color-party-c) 8%, transparent); }
-  .party-bg-d { background-color: color-mix(in srgb, var(--color-party-d) 8%, transparent); }
-  .party-bg-e { background-color: color-mix(in srgb, var(--color-party-e) 8%, transparent); }
-  .party-bg-f { background-color: color-mix(in srgb, var(--color-party-f) 8%, transparent); }
-  .party-bg-h { background-color: color-mix(in srgb, var(--color-party-h) 8%, transparent); }
+body {
+  margin: 0;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+/* Party badge classes */
+.party-badge-a { background-color: var(--color-party-a); }
+.party-badge-b { background-color: var(--color-party-b); }
+.party-badge-c { background-color: var(--color-party-c); }
+.party-badge-d { background-color: var(--color-party-d); }
+.party-badge-e { background-color: var(--color-party-e); }
+.party-badge-f { background-color: var(--color-party-f); }
+.party-badge-h { background-color: var(--color-party-h); }
+
+/* Party border classes */
+.party-border-a { border-color: var(--color-party-a); }
+.party-border-b { border-color: var(--color-party-b); }
+.party-border-c { border-color: var(--color-party-c); }
+.party-border-d { border-color: var(--color-party-d); }
+.party-border-e { border-color: var(--color-party-e); }
+.party-border-f { border-color: var(--color-party-f); }
+.party-border-h { border-color: var(--color-party-h); }
+
+/* Party text classes */
+.party-text-a { color: var(--color-party-a); }
+.party-text-b { color: var(--color-party-b); }
+.party-text-c { color: var(--color-party-c); }
+.party-text-d { color: var(--color-party-d); }
+.party-text-e { color: var(--color-party-e); }
+.party-text-f { color: var(--color-party-f); }
+.party-text-h { color: var(--color-party-h); }
+
+/* Party background classes (8% opacity) */
+.party-bg-a { background-color: color-mix(in srgb, var(--color-party-a) 8%, transparent); }
+.party-bg-b { background-color: color-mix(in srgb, var(--color-party-b) 8%, transparent); }
+.party-bg-c { background-color: color-mix(in srgb, var(--color-party-c) 8%, transparent); }
+.party-bg-d { background-color: color-mix(in srgb, var(--color-party-d) 8%, transparent); }
+.party-bg-e { background-color: color-mix(in srgb, var(--color-party-e) 8%, transparent); }
+.party-bg-f { background-color: color-mix(in srgb, var(--color-party-f) 8%, transparent); }
+.party-bg-h { background-color: color-mix(in srgb, var(--color-party-h) 8%, transparent); }

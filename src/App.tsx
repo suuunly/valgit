@@ -5,7 +5,7 @@ import NotFound from './pages/NotFound.tsx';
 
 const App = () => (
   <>
-    <Toaster position="top-center" richColors />
+    <Toaster />
     <HashRouter>
       <Routes>
         <Route path="/" element={<Index />} />
