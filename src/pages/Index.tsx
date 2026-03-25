@@ -157,7 +157,7 @@ const Index = () => {
                       className="flex w-full items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-secondary transition-colors"
                     >
                       <Copy className="h-4 w-4 text-muted-foreground" />
-                      Avrita til clipboard
+                      Kopiera
                     </button>
                     <button
                       onClick={() => { handleImport(); setMenuOpen(false); }}
@@ -165,7 +165,7 @@ const Index = () => {
                       className="flex w-full items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-secondary transition-colors disabled:opacity-40"
                     >
                       <Upload className="h-4 w-4 text-muted-foreground" />
-                      Flyta inn frá clipboard
+                      Importera kopi
                     </button>
                     <div className="my-1 border-t border-border" />
                     <button
