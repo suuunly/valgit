@@ -244,6 +244,7 @@ const Index = () => {
 
         <div className="py-8 text-center text-xs text-muted-foreground">
           Góða ferð til Gran Canaria! ✈️🌴
+          <p className="mt-2 text-[10px] opacity-50">PR Preview - Samsung font fix</p>
         </div>
       </main>
     </div>
