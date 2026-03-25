@@ -77,5 +77,13 @@ export function useVotes() {
     localStorage.removeItem(LOCK_KEY);
   }, []);
 
-  return { getVote, increment, decrement, setVote, resetAll, locked, lockIn, unlock };
+  const importVotes = useCallback((newVotes: VoteMap) => {
+    setVotes(prev => {
+      const merged = { ...prev, ...newVotes };
+      saveVotes(merged);
+      return merged;
+    });
+  }, []);
+
+  return { getVote, increment, decrement, setVote, resetAll, locked, lockIn, unlock, importVotes };
 }
