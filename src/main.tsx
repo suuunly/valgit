@@ -4,6 +4,6 @@ import './index.css';
 
 createRoot(document.getElementById('root')!).render(<App />);
 
-if ('serviceWorker' in navigator) {
+if ('serviceWorker' in navigator && !location.pathname.includes('/pr-preview/')) {
   navigator.serviceWorker.register('/valgit/sw.js');
 }
